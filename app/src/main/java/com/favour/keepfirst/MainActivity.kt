@@ -108,11 +108,10 @@ class MainActivity : AppCompatActivity() {
         val js = if (success) {
             "if (typeof window.onBiometricResult === 'function') { window.onBiometricResult(true, null); }"
         } else {
-            val safeMsg = (errorMessage ?: "Authentication failed")
-                .replace("\", "\\")
-                .replace("'", "\'")
-                .replace("
-", " ")
+     val safeMsg = (errorMessage ?: "Authentication failed")
+       .replace("\\", "\\\\")
+       .replace("", "\\")
+       .replace("\n", "")
             "if (typeof window.onBiometricResult === 'function') { window.onBiometricResult(false, '$safeMsg'); }"
         }
         webView.post {
